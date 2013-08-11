@@ -121,10 +121,14 @@
             break;
     }
     if (animated) {
-        [UIView animateWithDuration:0.2 animations:^{
-            self.scrollView.contentInset = [self refreshingInsetsForDirection:direction];
-            self.scrollView.contentOffset = contentOffset;
-        }];
+        [UIView animateWithDuration:0.2
+                              delay:0
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             self.scrollView.contentInset = [self refreshingInsetsForDirection:direction];
+                             self.scrollView.contentOffset = contentOffset;
+                         } completion:^(BOOL finished) {
+                         }];
     } else {
         self.scrollView.contentInset = [self refreshingInsetsForDirection:direction];
         self.scrollView.contentOffset = contentOffset;
@@ -159,9 +163,13 @@
             break;
     }
     if (animated) {
-        [UIView animateWithDuration:0.2 animations:^{
-            self.scrollView.contentInset = self.scrollViewContentInset;
-        }];
+        [UIView animateWithDuration:0.2
+                              delay:0
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             self.scrollView.contentInset = self.scrollViewContentInset;
+                         } completion:^(BOOL finished) {
+                         }];
     } else {
         self.scrollView.contentInset = self.scrollViewContentInset;
     }
@@ -237,9 +245,14 @@
                 // if you are decelerating, it means you've stopped dragging.
                 self.refreshingDirections |= refreshingDirection;
                 self.refreshableDirections &= ~refreshableDirection;
-                [UIView animateWithDuration:.2 animations:^{
-                    self.scrollView.contentInset = [self refreshingInsetsForDirection:direction];
-                }];
+                [UIView animateWithDuration:0.2
+                                      delay:0
+                                    options:UIViewAnimationOptionBeginFromCurrentState
+                                 animations:^{
+                                     self.scrollView.contentInset = [self refreshingInsetsForDirection:direction];
+                                 } completion:^(BOOL finished) {
+                                 }];
+
                 if ([self.delegate respondsToSelector:@selector(pullToRefreshController:didEngageRefreshDirection:)]) {
                     [self.delegate pullToRefreshController:self didEngageRefreshDirection:direction];
                 }
